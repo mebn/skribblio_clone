@@ -1,16 +1,16 @@
 package main
 
+import "github.com/gorilla/websocket"
+
 type Player struct {
-	name   string
-	isHost bool
-	points int
-	room   *Room
+	name string
+	conn *websocket.Conn
+	room *Room
 }
 
-func NewPlayer(name string, room *Room) *Player {
-	return &Player{
-		name:   name,
-		room:   room,
-		isHost: false,
-	}
+func NewPlayer(name string, conn *websocket.Conn, room *Room) *Player {
+	temp := &Player{name, conn, room}
+	temp.room.players[temp] = temp
+
+	return temp
 }
