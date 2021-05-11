@@ -1,0 +1,126 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+* {
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+  font-family:"Raleway", sans-serif;
+
+}
+body {
+  background:#2C3D49;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 2px 1px 4px rgba(255, 255, 255, 0.2);
+}
+
+.app {
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 0%);
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:750px;
+  height:750px;
+  box-shadow:
+    0 2.8px 2.2px rgba(125, 180, 217, 0.002),
+    0 6.7px 5.3px rgba(109, 186, 238, 0.008),
+    0 12.5px 10px rgba(96, 191, 255, 0.06),
+    0 22.3px 17.9px rgba(169, 217, 250, 0.002),
+    0 41.8px 33.4px rgba(214, 237, 252, 0.086),
+    0 100px 80px rgba(154, 180, 197, 0.12);
+}
+
+.app .controls {
+  height:150px;
+  display:flex;
+  align-items:center;
+  background: rgba(30,31,38,0.62);
+  padding:0px 10px;
+  box-shadow:
+    0 2.8px 2.2px rgba(125, 180, 217, 0.0),
+    0 6.7px 5.3px rgba(109, 186, 238, 0.0),
+    0 12.5px 10px rgba(96, 191, 255, 0.0),
+    0 22.3px 17.9px rgba(169, 217, 250, 0.005),
+    0 41.8px 33.4px rgba(214, 237, 252, 0.005),
+    0 100px 80px rgba(154, 180, 197, 0.85);
+}
+
+.controls h1 {
+  position: fixed;
+  left: 305px;
+}
+
+.app .controls .title {
+  font-weight:600;
+  font-size: 50px;
+  width:80px;
+}
+
+.app .controls button {
+  display:inline-block;
+  line-height:30px;
+  margin:0px 2px;
+  cursor:pointer;
+}
+
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: rgba(30,31,38,0.5);
+  border-radius: 25px;
+}
+
+.Create{
+  padding: 5px;
+  border-bottom: 1px solid;
+}
+
+.Join{
+  padding: 5px;
+}
+
+
+
+.Join button{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Create button{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+.labeling{
+  text-align: center;
+}
+
+button {
+  font-weight:600;
+  height: 50px; width: 50px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  background: #2691d9;
+  color: rgba(255,255,255,0.95);
+  border: 1px solid;
+  text-align:center;
+  border-radius: 25px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+button:hover{
+  background: rgba(17,17,17,0.5);
+}
