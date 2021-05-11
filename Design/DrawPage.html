@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Draw Page</title>
+  <link rel="stylesheet" href="./DrawPage.css">
+
+</head>
+<body>
+
+<!-- Draw Page -->
+<div class="app">
+  <div class="controls">
+    <div class="type">
+      <!--Brush-->
+      <input type="radio" name="pen-type" id="pen-brush" checked>
+      <label for="pen-brush">
+        <i class="fa fa-paint-brush"></i>
+      </label>
+      <!--Eraser-->
+      <input type="radio" name="pen-type" id="pen-eraser">
+      <label for="pen-eraser">
+        <i class="fa fa-eraser"></i>
+      </label>
+    </div>
+    <!-- Size of pen -->
+    <div class="size">
+      <ul>
+        <button class="pen-size" id="one"   onClick="resize(this.id)"></button>
+        <button class="pen-size" id="two"   onClick="resize(this.id)"></button>
+        <button class="pen-size" id="three" onClick="resize(this.id)"></button>
+        <button class="pen-size" id="four"  onClick="resize(this.id)"></button>
+      </ul>
+    </div>
+    <!-- change color -->
+    <div class="color">
+      <input type="color" id="color-picker" value="#000">
+    </div>
+    <div class="actions">
+      <button class="fa fa-trash" id="reset-canvas"></button>
+    </div>
+  </div>
+  <div id="canvas-wrapper"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.min.js"></script>
+<script  src="./Draw.js"></script>
+
+</body>
+</html>

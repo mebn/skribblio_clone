@@ -1,0 +1,154 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+* {
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+  font-family:"Raleway", sans-serif;
+}
+body {
+  background:#2C3D49;
+}
+
+.controls{
+  color: WHITE;  
+}
+
+.app {
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 50%);
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:750px;
+  height:750px;
+  box-shadow:
+    0 2.8px 2.2px rgba(125, 180, 217, 0.034),
+    0 6.7px 5.3px rgba(109, 186, 238, 0.048),
+    0 12.5px 10px rgba(96, 191, 255, 0.06),
+    0 22.3px 17.9px rgba(169, 217, 250, 0.072),
+    0 41.8px 33.4px rgba(214, 237, 252, 0.086),
+    0 100px 80px rgba(154, 180, 197, 0.12);
+}
+.app .controls {
+  height:50px;
+  display:flex;
+  align-items:center;
+  background: rgba(30,31,38,0.75);
+  padding:0px 10px;
+}
+.app .controls .title {
+  font-weight:600;
+  color:#222;
+  width:80px;
+}
+.app .controls .type,
+.app .controls .size,
+.app .controls .color {
+  margin: 0px 10px;
+}
+.app .controls .type input {
+  display:none;
+}
+.app .controls .type label {
+  width:30px;
+  height:30px;
+  display:inline-block;
+  text-align:center;
+  line-height:30px;
+  margin:0px 2px;
+  cursor:pointer;
+}
+.app .controls .type input:checked + label {
+  background: #2691d9;
+  color:#eee;
+  border-radius:50%;
+}
+.app .controls .size input {
+  height:10px;
+}
+.app .controls .actions {
+  flex:1;
+  text-align:right;
+}
+.app .controls .actions button {
+  padding:5px 10px;
+  cursor:pointer;
+}
+
+#reset-canvas {
+ background: #2691d9;
+ height: 35px;
+ width: 35px;
+ color: WHITE;
+ border: 1px solid;
+ box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12); 
+  transition: transform 0.3s;
+  border-radius: 25px;
+  transition: 0.5s;
+}
+
+#reset-canvas:hover{
+  background: rgba(17,17,17,0.5);
+}
+
+ul {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
+}
+
+ul button {
+  cursor: pointer;
+  transition: transform 0.3s;
+  background: #2691d9;
+  color: WHITE;
+  border: 1px solid #2691d9;
+  border-radius: 15px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12); 
+}
+
+ul button:hover{
+  transform: scale(1.1);
+  background: rgba(17,17,17,0.5);
+}
+
+#one  {    height: 15px; width: 15px; }
+#two  {    height: 20px; width: 20px; }
+#three{    height: 25px; width: 25px; }
+#four {    height: 30px; width: 30px; }
+
+#color-picker{
+  display: inline-block; 
+  height: 35px; width: 35px;
+  background-color: #fff;
+  border-radius: 20px; 
+  vertical-align: middle; 
+} 
+
+input[type="color"] {
+	-webkit-appearance: none;
+	width: 35px;
+	height: 35px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: 1px solid #2691d9;
+  border-radius: 25px; 
+}
