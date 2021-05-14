@@ -158,8 +158,8 @@ input[type="color"]::-webkit-color-swatch {
   width: 750px;
   height: 100px;
   position: absolute; 
+  top: -150px;
   left: 50%; 
-  top: 10%;
   transform: translateX(-50%);
   font-weight:600;
   border-radius: 50px;
@@ -178,13 +178,12 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .Message-Board{
-  position: fixed; 
+  position: absolute; 
   background: white; 
   height:750px;
   width: 250px;
-  top: 50%;
-  right: 15%;
-  transform: translateY(-50%);
+  left: 800px;
+
   
    box-shadow:
     0 2.8px 2.2px rgba(125, 180, 217, 0.034),
