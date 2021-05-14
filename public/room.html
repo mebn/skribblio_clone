@@ -11,6 +11,16 @@
 
 <!-- Draw Page -->
 <div class="app">
+  <div class="Message-Board">
+  <div id="msgs">
+    <h3></h3>
+  </div>
+  <br>
+  <div class="Send-Text">
+    <input type="text" id="text">
+    <button class="fa fa-arrow-right" id="send"></button>
+  </div>
+ </div>
   <div class="controls">
     <div class="type">
       <!--Brush-->
@@ -42,24 +52,16 @@
     </div>
   </div>
   <div id="canvas-wrapper"></div>
-</div>
-
-<div class="Room-Details">
+  <div class="Room-Details">
   <ul class="Room-status">
       <p id="username">Username: Loading...</p>
       <p id="roomnumber">Roomnumber: Loading...</p>
   </ul>
-</div> 
-<div class="Message-Board">
-  <div id="msgs">
-    <h3></h3>
-  </div>
-  <br>
-  <div class="Send-Text">
-    <input type="text" id="text">
-    <button class="fa fa-arrow-right" id="send"></button>
-  </div>
- </div>
+  </div> 
+</div>
+
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.min.js"></script>
 <!-- <script  src="./Design/Draw.js"></script> -->
