@@ -98,6 +98,10 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 	receiveOn("sendToRoom", code, func() {
 		currentRoom.SendToRoom(msgType, msg)
 	})
+
+	receiveOn("drawing", code, func() {
+		currentRoom.SendToRoom(msgType, msg)
+	})
 }
 
 // Send on a channel name to server. For example:

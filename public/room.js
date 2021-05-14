@@ -44,6 +44,45 @@ const receiveOn = (name, msg, cb) => {
 
 
 
+// Draw.js
+function _(selector) {
+    return document.querySelector(selector);
+}
+
+function setup() {
+    let canvas = createCanvas(750, 700);
+    canvas.parent("canvas-wrapper");
+    background(255);
+    strokeWeight(10);
+}
+
+let size = 0;
+function resize(clicked_id) {
+    size = 0;
+    if (clicked_id == "one") size = 10;
+    else if (clicked_id == "two") size = 20;
+    else if (clicked_id == "three") size = 30;
+    else size = 40;
+}
+
+function mouseDragged() {
+    let type = _("#pen-brush").checked ? "brush" : "eraser";
+    let color = _("#color-picker").value;
+
+    // Send data needed to draw and then do the actual
+    // drawing in socket.onmessage. OBS! there might be some delay
+    // on poor network connection.
+    let obj = { type, color, size, pmouseX, pmouseY, mouseX, mouseY };
+    let data = JSON.stringify(obj);
+    sendOn("drawing", data);
+}
+
+_("#reset-canvas").addEventListener("click", function () {
+    background(255);
+});
+
+
+
 
 socket.onopen = () => {
     console.log("Connected to server!")
@@ -61,6 +100,20 @@ socket.onmessage = msg => {
     receiveOn("sendToRoom", msg, data => {
         document.getElementById("msgs").innerHTML += `${data} <br />`
     })
+
+    receiveOn("drawing", msg, data => {
+        const drawData = JSON.parse(data)
+
+        stroke(drawData.color);
+        strokeWeight(drawData.size);
+
+        if (drawData.type == "brush") {
+            line(drawData.pmouseX, drawData.pmouseY, drawData.mouseX, drawData.mouseY);
+        } else {
+            stroke(255);
+            line(drawData.pmouseX, drawData.pmouseY, drawData.mouseX, drawData.mouseY);
+        }
+    })
 }
 
 socket.onclose = err => {
@@ -70,6 +123,7 @@ socket.onclose = err => {
 socket.onerror = err => {
     console.log("socket error: ", err)
 }
+
 
 document.getElementById("send").addEventListener("click", e => {
     const text = document.getElementById("text")
