@@ -4,25 +4,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Design/DrawPage.css">
     <title>Document</title>
 </head>
 <body>
 
-<h1 id="title">Room</h1>
-
-<p id="username">Username: Loading...</p>
-<p id="roomnumber">Roomnumber: Loading...</p>
-
-<input type="text" id="text">
-<button id="send">send</button>
-
-<br>
-
-<div id="msgs">
-    <h3>MSGS:</h3>
+<!-- Draw Page -->
+<div class="app">
+  <div class="controls">
+    <div class="type">
+      <!--Brush-->
+      <input type="radio" name="pen-type" id="pen-brush" checked>
+      <label for="pen-brush">
+        <i class="fa fa-paint-brush"></i>
+      </label>
+      <!--Eraser-->
+      <input type="radio" name="pen-type" id="pen-eraser">
+      <label for="pen-eraser">
+        <i class="fa fa-eraser"></i>
+      </label>
+    </div>
+    <!-- Size of pen -->
+    <div class="size">
+      <ul>
+        <button class="pen-size" id="one"   onClick="resize(this.id)"></button>
+        <button class="pen-size" id="two"   onClick="resize(this.id)"></button>
+        <button class="pen-size" id="three" onClick="resize(this.id)"></button>
+        <button class="pen-size" id="four"  onClick="resize(this.id)"></button>
+      </ul>
+    </div>
+    <!-- change color -->
+    <div class="color">
+      <input type="color" id="color-picker" value="#000">
+    </div>
+    <div class="actions">
+      <button class="fa fa-trash" id="reset-canvas"></button>
+    </div>
+  </div>
+  <div id="canvas-wrapper"></div>
 </div>
 
-<script src="public/room.js"></script>
+<div class="Room-Details">
+  <ul class="Room-status">
+      <p id="username">Username: Loading...</p>
+      <p id="roomnumber">Roomnumber: Loading...</p>
+  </ul>
+</div> 
+<div class="Message-Board">
+  <div id="msgs">
+    <h3></h3>
+  </div>
+  <br>
+  <div class="Send-Text">
+    <input type="text" id="text">
+    <button class="fa fa-arrow-right" id="send"></button>
+  </div>
+ </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.min.js"></script>
+<script  src="./Design/Draw.js"></script>
+<script src="public/room.js"></script>
 </body>
 </html>
