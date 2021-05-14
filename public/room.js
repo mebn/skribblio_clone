@@ -56,7 +56,7 @@ function setup() {
     strokeWeight(10);
 }
 
-let size = 0;
+let size = 10;
 function resize(clicked_id) {
     size = 0;
     if (clicked_id == "one") size = 10;
