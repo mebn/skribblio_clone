@@ -152,29 +152,13 @@ input[type="color"]::-webkit-color-swatch {
 	border: 1px solid #2691d9;
   border-radius: 25px; 
 }
-
-.Room-Details {
-  background: white;
-  width: 750px;
-  height: 100px;
-  position: absolute; 
-  top: -150px;
-  left: 50%; 
-  transform: translateX(-50%);
-  font-weight:600;
-  border-radius: 50px;
-  border-bottom: 2px solid rgb(30,31,38);
-}
-
-
 .Room-status{
-  color: #2691d9;
+  width: 300px;
+  color: #fff;
   position: absolute;
-  left: 50%; 
-  top: 50%; 
-  transform: translate(-60%, -50%);
   display: grid;
-  gap: 100px;
+  left: 375px;
+  font-weight: 600;
 }
 
 .Message-Board{
