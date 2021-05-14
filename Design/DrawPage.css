@@ -31,7 +31,7 @@ body {
     0 100px 80px rgba(154, 180, 197, 0.12);
 }
 .app .controls {
-  height:50px;
+  height:75px;
   display:flex;
   align-items:center;
   background: rgba(30,31,38,0.75);
@@ -152,24 +152,22 @@ input[type="color"]::-webkit-color-swatch {
 	border: 1px solid #2691d9;
   border-radius: 25px; 
 }
+
 .Room-status{
-  width: 300px;
   color: #fff;
-  position: absolute;
-  display: grid;
-  left: 375px;
   font-weight: 600;
+  flex:2;
+  text-align:right;
+  padding: 10px;
 }
 
 .Message-Board{
   position: absolute; 
   background: white; 
-  height:750px;
+  height: 750px;
   width: 250px;
   left: 800px;
-
-  
-   box-shadow:
+  box-shadow:
     0 2.8px 2.2px rgba(125, 180, 217, 0.034),
     0 6.7px 5.3px rgba(109, 186, 238, 0.048),
     0 12.5px 10px rgba(96, 191, 255, 0.06),
