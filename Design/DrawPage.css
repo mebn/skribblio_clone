@@ -221,3 +221,12 @@ input[type="color"]::-webkit-color-swatch {
 
 
 
+
+
+
+
+
+/* snabb kod */
+#waitingroom { display: block; }
+#startgame { display: none; } /* only display if host */
+#waitForStart { display: none; }

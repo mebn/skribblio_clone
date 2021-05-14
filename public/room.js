@@ -83,9 +83,10 @@ _("#reset-canvas").addEventListener("click", function () {
 
 
 
-
 socket.onopen = () => {
     console.log("Connected to server!")
+    // am i host?
+    sendOn("is host", "")
 }
 
 socket.onmessage = msg => {
@@ -118,6 +119,17 @@ socket.onmessage = msg => {
     receiveOn("clear canvas", msg, data => {
         background(255);
     })
+
+    receiveOn("is host", msg, data => {
+        if (data == "true") {
+            document.getElementById("startgame").style.display = "block"
+        }
+    })
+
+    receiveOn("should start game", msg, data => {
+        document.getElementById("waitingroom").style.display = "none"
+        document.getElementById("waitForStart").style.display = "block"
+    })
 }
 
 socket.onclose = err => {
@@ -127,6 +139,10 @@ socket.onclose = err => {
 socket.onerror = err => {
     console.log("socket error: ", err)
 }
+
+document.getElementById("startgame").addEventListener("click", e => {
+    sendOn("should start game", "")
+})
 
 
 document.getElementById("send").addEventListener("click", e => {
