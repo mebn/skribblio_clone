@@ -78,7 +78,7 @@ function mouseDragged() {
 }
 
 _("#reset-canvas").addEventListener("click", function () {
-    background(255);
+    sendOn("clear canvas", true);
 });
 
 
@@ -113,6 +113,10 @@ socket.onmessage = msg => {
             stroke(255);
             line(drawData.pmouseX, drawData.pmouseY, drawData.mouseX, drawData.mouseY);
         }
+    })
+
+    receiveOn("clear canvas", msg, data => {
+        background(255);
     })
 }
 
