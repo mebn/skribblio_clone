@@ -115,16 +115,7 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 		currentRoom.SendToRoom(msgType, msg)
 
 		clients[conn].isTurn = true
-		// choose 3 words from words and send them on "is turn"
-		rand1 := rand.Intn(len(words))
-		rand2 := rand.Intn(len(words))
-		rand3 := rand.Intn(len(words))
-
-		word1 := words[rand1]
-		word2 := words[rand2]
-		word3 := words[rand3]
-
-		data2send := word1 + " " + word2 + " " + word3
+		data2send := generateWordsToSend()
 		sendOn("is turn", data2send, conn)
 	})
 
@@ -146,6 +137,39 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 		currentRoom.SendEmptyToRoom("game start")
 	})
+
+	receiveOn("next turn", code, func() {
+		player.isTurn = false
+
+		// chose new drawing player at random
+		var newCurrentPlayer *Player
+		// this works because the order is random.
+		for v, _ := range currentRoom.players {
+			newCurrentPlayer = v
+			break
+		}
+
+		newCurrentPlayer.isTurn = true
+		data2send := generateWordsToSend()
+		obj := "{\"code\":\"" + "is turn" + "\",\"data\":\"" + data2send + "\"}"
+		newCurrentPlayer.conn.WriteMessage(1, []byte(obj))
+		currentRoom.SendEmptyToRoom("clear canvas")
+
+	})
+}
+
+func generateWordsToSend() string {
+	// choose 3 words from words and send them on "is turn"
+	rand1 := rand.Intn(len(words))
+	rand2 := rand.Intn(len(words))
+	rand3 := rand.Intn(len(words))
+
+	word1 := words[rand1]
+	word2 := words[rand2]
+	word3 := words[rand3]
+
+	data2send := word1 + " " + word2 + " " + word3
+	return data2send
 }
 
 // Send on a channel name to server. For example:

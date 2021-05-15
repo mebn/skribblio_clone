@@ -230,3 +230,4 @@ input[type="color"]::-webkit-color-swatch {
 #waitForStart { display: none; }
 #wordpicker { display: none; }/* only if your turn */
 #wordpickerwaiter { display: none; }
+#nextturn { display: none; }

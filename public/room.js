@@ -158,15 +158,13 @@ socket.onmessage = msg => {
 const clickedOnWord = e => {
     let word = e.target.innerHTML
     sendOn("picked word", word)
+    document.getElementById("nextturn").style.display = "block"
 }
 
-socket.onclose = err => {
-    console.log("Disconnected from server: ", err)
-}
-
-socket.onerror = err => {
-    console.log("socket error: ", err)
-}
+document.getElementById("nextturn").addEventListener("click", e => {
+    sendOn("next turn", "")
+    document.getElementById("nextturn").style.display = "none"
+})
 
 document.getElementById("startgame").addEventListener("click", e => {
     sendOn("should start game", "")
