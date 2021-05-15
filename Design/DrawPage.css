@@ -228,3 +228,5 @@ input[type="color"]::-webkit-color-swatch {
 #waitingroom { display: block; }
 #startgame { display: none; } /* only display if host */
 #waitForStart { display: none; }
+#wordpicker { display: none; }/* only if your turn */
+#wordpickerwaiter { display: none; }
