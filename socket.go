@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"strconv"
 
@@ -11,8 +12,17 @@ import (
 )
 
 var clients = make(map[*websocket.Conn]*Player)
-var rooms = map[string]*Room{}
+var rooms = make(map[string]*Room)
 var upgrader = websocket.Upgrader{}
+
+var words = []string{
+	"banana",
+	"pineapple",
+	"apple",
+	"pear",
+	"grape",
+	"citrus",
+}
 
 func WSEndpoint(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgrader.Upgrade(w, r, nil)
@@ -44,7 +54,7 @@ func WSEndpoint(w http.ResponseWriter, r *http.Request) {
 			// redirect player back to /
 		}
 	} else if roomtype == "Create" {
-		rooms[roomnumber] = &Room{roomnumber, map[*Player]*Player{}}
+		rooms[roomnumber] = &Room{roomnumber, map[*Player]*Player{}, ""}
 	}
 
 	tempPlayer = NewPlayer(username, ws, rooms[roomnumber])
@@ -92,7 +102,7 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 	// interface to string
 	code := fmt.Sprintf("%v", obj["code"])
-	// data := fmt.Sprintf("%v", obj["data"])
+	data := fmt.Sprintf("%v", obj["data"])
 
 	// handle message based on code/channel
 
@@ -103,6 +113,10 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 	receiveOn("should start game", code, func() {
 		currentRoom.SendToRoom(msgType, msg)
+
+		clients[conn].isTurn = true
+		data2send := generateWordsToSend()
+		sendOn("is turn", data2send, conn)
 	})
 
 	receiveOn("sendToRoom", code, func() {
@@ -116,6 +130,46 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 	receiveOn("clear canvas", code, func() {
 		currentRoom.SendToRoom(msgType, msg)
 	})
+
+	receiveOn("picked word", code, func() {
+		currentRoom.currentWord = data
+		fmt.Println("WORD::::::", currentRoom.currentWord)
+
+		currentRoom.SendEmptyToRoom("game start")
+	})
+
+	receiveOn("next turn", code, func() {
+		player.isTurn = false
+
+		// chose new drawing player at random
+		var newCurrentPlayer *Player
+		// this works because the order is random.
+		for v, _ := range currentRoom.players {
+			newCurrentPlayer = v
+			break
+		}
+
+		newCurrentPlayer.isTurn = true
+		data2send := generateWordsToSend()
+		obj := "{\"code\":\"" + "is turn" + "\",\"data\":\"" + data2send + "\"}"
+		newCurrentPlayer.conn.WriteMessage(1, []byte(obj))
+		currentRoom.SendEmptyToRoom("clear canvas")
+
+	})
+}
+
+func generateWordsToSend() string {
+	// choose 3 words from words and send them on "is turn"
+	rand1 := rand.Intn(len(words))
+	rand2 := rand.Intn(len(words))
+	rand3 := rand.Intn(len(words))
+
+	word1 := words[rand1]
+	word2 := words[rand2]
+	word3 := words[rand3]
+
+	data2send := word1 + " " + word2 + " " + word3
+	return data2send
 }
 
 // Send on a channel name to server. For example:

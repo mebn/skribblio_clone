@@ -128,17 +128,43 @@ socket.onmessage = msg => {
 
     receiveOn("should start game", msg, data => {
         document.getElementById("waitingroom").style.display = "none"
+        document.getElementById("wordpickerwaiter").style.display = "block"
+    })
+
+    receiveOn("is turn", msg, data => {
+        // receive words and display them. 
+        // pick one -> send to server -> start game
+
+        document.getElementById("wordpicker").style.display = "block"
+
+        let words = data.split(" ")
+        console.log(words);
+        document.getElementById("word0").innerHTML = words[0]
+        document.getElementById("word1").innerHTML = words[1]
+        document.getElementById("word2").innerHTML = words[2]
+
+        document.getElementById("word0").addEventListener("click", clickedOnWord)
+        document.getElementById("word1").addEventListener("click", clickedOnWord)
+        document.getElementById("word2").addEventListener("click", clickedOnWord)
+    })
+
+    receiveOn("game start", msg, data => {
+        document.getElementById("wordpicker").style.display = "none"
+        document.getElementById("wordpickerwaiter").style.display = "none"
         document.getElementById("waitForStart").style.display = "block"
     })
 }
 
-socket.onclose = err => {
-    console.log("Disconnected from server: ", err)
+const clickedOnWord = e => {
+    let word = e.target.innerHTML
+    sendOn("picked word", word)
+    document.getElementById("nextturn").style.display = "block"
 }
 
-socket.onerror = err => {
-    console.log("socket error: ", err)
-}
+document.getElementById("nextturn").addEventListener("click", e => {
+    sendOn("next turn", "")
+    document.getElementById("nextturn").style.display = "none"
+})
 
 document.getElementById("startgame").addEventListener("click", e => {
     sendOn("should start game", "")

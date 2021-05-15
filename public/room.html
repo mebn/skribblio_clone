@@ -29,6 +29,20 @@
    <button id="startgame">Start</button>
  </div>
 
+ <div id="wordpicker">
+   <p>Pick a word:</p>
+   <p id="word0"></p>
+   <p id="word1"></p>
+   <p id="word2"></p>
+ </div>
+
+ <div id="wordpickerwaiter">
+   <p>Waiting for player to pick a word...</p>
+ </div>
+
+
+<button id="nextturn">Next turn/give up</button>
+
 
  <div id="waitForStart">
   <div class="controls">
@@ -57,11 +71,7 @@
     <div class="color">
       <input type="color" id="color-picker" value="#000">
     </div>
-    <!-- Room information -->
-    <ul class="Room-status">
-      <p id="username">Username: Loading...</p>
-      <p id="roomnumber">Roomnumber: Loading...</p>
-    </ul>
+    
     <div class="actions">
       <button class="fa fa-trash" id="reset-canvas"></button>
     </div>
@@ -69,13 +79,12 @@
   <div id="canvas-wrapper"></div>
 </div>
 
-<div class="Room-Details">
-  <ul class="Room-status">
-      <p id="username">Username: Loading...</p>
-      <p id="roomnumber">Roomnumber: Loading...</p>
-  </ul>
-  </div> 
 
+<!-- Room information -->
+<ul class="Room-status">
+  <p id="username">Username: Loading...</p>
+  <p id="roomnumber">Roomnumber: Loading...</p>
+</ul>
 
 
 
