@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/websocket"
 )
@@ -94,6 +95,15 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 	// data := fmt.Sprintf("%v", obj["data"])
 
 	// handle message based on code/channel
+
+	receiveOn("is host", code, func() {
+		msg := strconv.FormatBool(clients[conn].isHost)
+		sendOn("is host", msg, conn)
+	})
+
+	receiveOn("should start game", code, func() {
+		currentRoom.SendToRoom(msgType, msg)
+	})
 
 	receiveOn("sendToRoom", code, func() {
 		currentRoom.SendToRoom(msgType, msg)
