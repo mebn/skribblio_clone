@@ -56,7 +56,7 @@ function setup() {
     strokeWeight(10);
 }
 
-let size = 10;
+let size = 0;
 function resize(clicked_id) {
     size = 0;
     if (clicked_id == "one") size = 10;
@@ -78,7 +78,7 @@ function mouseDragged() {
 }
 
 _("#reset-canvas").addEventListener("click", function () {
-    sendOn("clear canvas", true);
+    sendOn("clear canvas", "");
 });
 
 
@@ -147,7 +147,10 @@ socket.onmessage = msg => {
         // receive words and display them. 
         // pick one -> send to server -> start game
 
+        size = 10
+
         document.getElementById("wordpicker").style.display = "block"
+        document.getElementById("drawStuff").style.display = "flex"
 
         let words = data.split(" ")
         console.log(words);
@@ -180,6 +183,8 @@ const clickedOnWord = e => {
 
 document.getElementById("nextturn").addEventListener("click", e => {
     sendOn("next turn", "")
+    size = 0
+    document.getElementById("drawStuff").style.display = "none"
     document.getElementById("nextturn").style.display = "none"
 })
 
