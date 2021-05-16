@@ -142,10 +142,19 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 		// chose new drawing player at random
 		var newCurrentPlayer *Player
+
 		// this works because the order is random.
-		for v, _ := range currentRoom.players {
-			newCurrentPlayer = v
-			break
+		// Also prevent the same player to draw
+		// twice or more in a row.
+		for {
+			for v, _ := range currentRoom.players {
+				newCurrentPlayer = v
+				break
+			}
+
+			if newCurrentPlayer != player {
+				break
+			}
 		}
 
 		newCurrentPlayer.isTurn = true
