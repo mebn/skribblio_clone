@@ -87,6 +87,7 @@ socket.onopen = () => {
     console.log("Connected to server!")
     // am i host?
     sendOn("is host", "")
+    sendOn("new connection", "")
 }
 
 socket.onmessage = msg => {
@@ -96,6 +97,17 @@ socket.onmessage = msg => {
 
     receiveOn("roomnumber", msg, data => {
         document.getElementById("roomnumber").innerHTML = `Roomnumber: ${data}`
+    })
+
+    receiveOn("new connection", msg, data => {
+        document.getElementById("allPlayers").innerHTML = "<b>Players:</b> <br />" 
+
+        let names = data.split(" ")
+
+        for (playerName of names) {
+            console.log(playerName)
+            document.getElementById("allPlayers").innerHTML += playerName + "<br />"
+        }
     })
 
     receiveOn("sendToRoom", msg, data => {

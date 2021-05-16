@@ -106,6 +106,18 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 	// handle message based on code/channel
 
+	receiveOn("new connection", code, func() {
+		var names string
+		players := currentRoom.players
+
+		for p := range players {
+			names += p.name + " "
+		}
+
+		obj := "{\"code\":\"" + code + "\",\"data\":\"" + names + "\"}"
+		currentRoom.SendToRoom(msgType, []byte(obj))
+	})
+
 	receiveOn("is host", code, func() {
 		msg := strconv.FormatBool(clients[conn].isHost)
 		sendOn("is host", msg, conn)
