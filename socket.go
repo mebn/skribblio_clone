@@ -4,25 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/websocket"
+	"github.com/gregoryv/english"
 )
 
 var clients = make(map[*websocket.Conn]*Player)
 var rooms = make(map[string]*Room)
 var upgrader = websocket.Upgrader{}
-
-var words = []string{
-	"banana",
-	"pineapple",
-	"apple",
-	"pear",
-	"grape",
-	"citrus",
-}
 
 func WSEndpoint(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgrader.Upgrade(w, r, nil)
@@ -160,7 +151,7 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 	receiveOn("next turn", code, func() {
 		player.isTurn = false
 
-		// chose new drawing player at random
+		// choose new drawing player at random
 		var newCurrentPlayer *Player
 
 		// this works because the order is random.
@@ -200,16 +191,12 @@ func updatePlayersInfo(msgType int, code string, currentRoom *Room) {
 }
 
 func generateWordsToSend() string {
-	// choose 3 words from words and send them on "is turn"
-	rand1 := rand.Intn(len(words))
-	rand2 := rand.Intn(len(words))
-	rand3 := rand.Intn(len(words))
+	var data2send string
 
-	word1 := words[rand1]
-	word2 := words[rand2]
-	word3 := words[rand3]
+	for i := 0; i < 5; i++ {
+		data2send += english.RandomWord() + " "
+	}
 
-	data2send := word1 + " " + word2 + " " + word3
 	return data2send
 }
 
