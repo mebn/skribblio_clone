@@ -139,7 +139,7 @@ socket.onmessage = msg => {
 
     receiveOn("should start game", msg, data => {
         document.getElementById("waitingroom").style.display = "none"
-        document.getElementById("wordpickerwaiter").style.display = "block"
+        document.getElementById("wordpickerwaiter").style.display = "none"
     })
 
     receiveOn("is turn", msg, data => {
@@ -171,19 +171,21 @@ socket.onmessage = msg => {
 
     receiveOn("new turn", msg, data => {
         document.getElementById("waitForStart").style.display = "none"
-        document.getElementById("wordpickerwaiter").style.display = "block"
+        document.getElementById("wordpickerwaiter").style.display = "none"
     })
 }
 
 const clickedOnWord = e => {
     let word = e.target.innerHTML
     sendOn("picked word", word)
+    document.getElementById("word").innerHTML = "Word picked: " + word
     document.getElementById("nextturn").style.display = "block"
 }
 
 document.getElementById("nextturn").addEventListener("click", e => {
     sendOn("next turn", "")
     size = 0
+    document.getElementById("word").innerHTML = ""
     document.getElementById("drawStuff").style.display = "none"
     document.getElementById("nextturn").style.display = "none"
 })
