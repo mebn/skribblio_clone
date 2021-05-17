@@ -12,9 +12,9 @@
 <!-- Draw Page -->
 <div class="app">
   <div class="Message-Board">
-  <div id="msgs">
-    <h3></h3>
-  </div>
+    <div id="msgs">
+      <h3></h3>
+    </div>
   <br>
   <div class="Send-Text">
     <input type="text" id="text">
@@ -25,7 +25,6 @@
 
  <!-- snabb kod -->
  <div id="waitingroom">
-   <p>Waiting for the host to start the game...</p>
    <button id="startgame">Start</button>
  </div>
 
@@ -38,10 +37,14 @@
    <p>Waiting for player to pick a word...</p>
  </div>
 
-<button id="nextturn">Next turn/give up</button>
+<ul class="Room-status">
+  <button class="fa fa-arrow-right" id="nextturn"></button>
+  <p id="word"></p>
+  <p id="username">Username: Loading...</p>
+  <p id="roomnumber">Roomnumber: Loading...</p>
+</ul>
 
 <div id="allPlayers"></div>
-
 
  <div id="waitForStart">
   <div class="controls" id="drawStuff">
@@ -80,10 +83,7 @@
 
 
 <!-- Room information -->
-<ul class="Room-status">
-  <p id="username">Username: Loading...</p>
-  <p id="roomnumber">Roomnumber: Loading...</p>
-</ul>
+
 
 
 
