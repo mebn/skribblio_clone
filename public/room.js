@@ -139,16 +139,14 @@ socket.onmessage = msg => {
 
     receiveOn("should start game", msg, data => {
         document.getElementById("waitingroom").style.display = "none"
-        document.getElementById("wordpickerwaiter").style.display = "none"
+        document.getElementById("wordpickerwaiter").style.display = "block"
     })
 
     receiveOn("is turn", msg, data => {
-        // receive words and display them. 
-        // pick one -> send to server -> start game
-
         size = 10
 
         document.getElementById("words").innerHTML = ""
+        document.getElementById("wordpickerwaiter").style.display = "none"
         document.getElementById("wordpicker").style.display = "block"
         document.getElementById("drawStuff").style.display = "flex"
 
@@ -171,7 +169,7 @@ socket.onmessage = msg => {
 
     receiveOn("new turn", msg, data => {
         document.getElementById("waitForStart").style.display = "none"
-        document.getElementById("wordpickerwaiter").style.display = "none"
+        document.getElementById("wordpickerwaiter").style.display = "block"
     })
 }
 

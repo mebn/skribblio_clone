@@ -169,11 +169,13 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 		}
 
 		newCurrentPlayer.isTurn = true
+
+		currentRoom.SendEmptyToRoom("clear canvas")
+		currentRoom.SendEmptyToRoom("new turn")
+
 		data2send := generateWordsToSend()
 		obj := "{\"code\":\"" + "is turn" + "\",\"data\":\"" + data2send + "\"}"
 		newCurrentPlayer.conn.WriteMessage(1, []byte(obj))
-		currentRoom.SendEmptyToRoom("clear canvas")
-		currentRoom.SendEmptyToRoom("new turn")
 
 	})
 }
