@@ -133,7 +133,6 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 	receiveOn("picked word", code, func() {
 		currentRoom.currentWord = data
-		fmt.Println("WORD::::::", currentRoom.currentWord)
 
 		currentRoom.SendEmptyToRoom("game start")
 	})
@@ -143,10 +142,19 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 		// chose new drawing player at random
 		var newCurrentPlayer *Player
+
 		// this works because the order is random.
-		for v, _ := range currentRoom.players {
-			newCurrentPlayer = v
-			break
+		// Also prevent the same player to draw
+		// twice or more in a row.
+		for {
+			for v, _ := range currentRoom.players {
+				newCurrentPlayer = v
+				break
+			}
+
+			if newCurrentPlayer != player {
+				break
+			}
 		}
 
 		newCurrentPlayer.isTurn = true
@@ -154,6 +162,7 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 		obj := "{\"code\":\"" + "is turn" + "\",\"data\":\"" + data2send + "\"}"
 		newCurrentPlayer.conn.WriteMessage(1, []byte(obj))
 		currentRoom.SendEmptyToRoom("clear canvas")
+		currentRoom.SendEmptyToRoom("new turn")
 
 	})
 }

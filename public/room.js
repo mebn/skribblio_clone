@@ -153,6 +153,11 @@ socket.onmessage = msg => {
         document.getElementById("wordpickerwaiter").style.display = "none"
         document.getElementById("waitForStart").style.display = "block"
     })
+
+    receiveOn("new turn", msg, data => {
+        document.getElementById("waitForStart").style.display = "none"
+        document.getElementById("wordpickerwaiter").style.display = "block"
+    })
 }
 
 const clickedOnWord = e => {
