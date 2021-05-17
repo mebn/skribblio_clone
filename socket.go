@@ -116,10 +116,11 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 		var sendBack []byte
 
 		if data == currentRoom.currentWord {
-			if !player.isTurn {
+			if !player.isTurn && !player.hasGuessed {
 				correctGuess := player.name + " guess the correct word!"
 				temp := "{\"code\":\"" + code + "\",\"data\":\"" + correctGuess + "\"}"
 				sendBack = []byte(temp)
+				player.hasGuessed = true
 				player.score += 100
 
 				updatePlayersInfo(msgType, "update players info", currentRoom)
@@ -150,6 +151,10 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 	receiveOn("next turn", code, func() {
 		player.isTurn = false
+
+		for _, p := range currentRoom.players {
+			p.hasGuessed = false
+		}
 
 		// choose new drawing player at random
 		var newCurrentPlayer *Player
