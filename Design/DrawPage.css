@@ -299,7 +299,11 @@ input[type="color"]::-webkit-color-swatch {
   display: none; 
 }
 
-#wordpicker { /* only if your turn */
+#wordpicker #words {
+  cursor: pointer;
+}
+
+#wordpicker, #wordpickerwaiter {
   color: #fff;
   font-weight: 600;
   flex:2;
@@ -310,10 +314,6 @@ input[type="color"]::-webkit-color-swatch {
   left:50%; 
   top:50%;
   transform: translate(-50%, -50%);
-}
-
-#wordpickerwaiter { 
-  display: none; 
 }
 
 #nextturn {
