@@ -148,17 +148,19 @@ socket.onmessage = msg => {
 
         size = 10
 
+        document.getElementById("words").innerHTML = ""
         document.getElementById("wordpicker").style.display = "block"
         document.getElementById("drawStuff").style.display = "flex"
 
         let words = data.split(" ")
-        document.getElementById("word0").innerHTML = words[0]
-        document.getElementById("word1").innerHTML = words[1]
-        document.getElementById("word2").innerHTML = words[2]
+        for (i in words) {
+            let newP = document.createElement('p')
+            newP.innerHTML = words[i]
+            newP.onclick = clickedOnWord
 
-        document.getElementById("word0").addEventListener("click", clickedOnWord)
-        document.getElementById("word1").addEventListener("click", clickedOnWord)
-        document.getElementById("word2").addEventListener("click", clickedOnWord)
+            document.getElementById('words').appendChild(newP);
+
+        }
     })
 
     receiveOn("game start", msg, data => {
