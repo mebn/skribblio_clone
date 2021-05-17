@@ -89,9 +89,8 @@ body {
     0 22.3px 17.9px rgba(0, 0, 0, 0.072),
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12); 
-  transition: transform 0.3s;
   border-radius: 25px;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 #reset-canvas:hover{
@@ -108,7 +107,7 @@ ul {
 
 ul button {
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: 0.3s;
   background: #2691d9;
   color: WHITE;
   border: 1px solid #2691d9;
@@ -162,9 +161,10 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .Message-Board{
+  padding: 5px 5px;
   position: absolute; 
   background: white; 
-  height: 750px;
+  height: 700px;
   width: 250px;
   left: 800px;
   box-shadow:
@@ -174,15 +174,22 @@ input[type="color"]::-webkit-color-swatch {
     0 22.3px 17.9px rgba(169, 217, 250, 0.002),
     0 41.8px 33.4px rgba(214, 237, 252, 0.06),
     0 100px 80px rgba(154, 180, 197, 0.10);
+  overflow-y: auto;
+  white-space: normal;  
 }
 
+
+
 .Send-Text {
+  right: -300px;
   border-top: 1px solid rgba(30,31,32,0.75);
-  position: absolute;
+  position: fixed;
   background: rgba(30,31,38,0.75);
-  width: 100%;
+  width: 250px;
+  height: 50px;
   top: 100%;
   transform: translateY(-100%);
+  
 }
 
 .Send-Text input {
@@ -202,7 +209,6 @@ input[type="color"]::-webkit-color-swatch {
   margin: 10px 10px 10px;
   height: 30px; width: 30px;
   cursor: pointer;
-  transition: transform 0.3s;
   background: #2691d9;
   color: rgba(255,255,255,0.95);
   border: 1px solid;
@@ -215,20 +221,127 @@ input[type="color"]::-webkit-color-swatch {
     0 22.3px 17.9px rgba(0, 0, 0, 0.072),
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12); 
+    transition: 0.3s;
+}
+
+.Send-Text button:hover{
+  background: rgba(17,17,17,0.5);
+}
+
+#allPlayers {
+  width: 250px;
+  height: 100%;
+  background: rgba(30,31,38,0.75);
+  position: absolute;
+  left: -300px;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px;
+  top:0%; 
+  overflow-y: auto;
+  box-shadow:
+    0 2.8px 2.2px rgba(125, 180, 217, 0.034),
+    0 6.7px 5.3px rgba(109, 186, 238, 0.048),
+    0 12.5px 10px rgba(96, 191, 255, 0.06),
+    0 22.3px 17.9px rgba(169, 217, 250, 0.002),
+    0 41.8px 33.4px rgba(214, 237, 252, 0.06),
+    0 100px 80px rgba(154, 180, 197, 0.10);
 }
 
 
 
 
-
-
-
-
 /* snabb kod */
-#waitingroom { display: block; }
-#startgame { display: none; } /* only display if host */
-#waitForStart { display: none; }
-#wordpicker { display: none; }/* only if your turn */
-#wordpickerwaiter { display: none; }
-#nextturn { display: none; }
-#drawStuff { display: none; }
+#waitingroom { 
+  color: #fff;
+  font-weight: 600;
+  flex:2;
+  padding: 10px;
+  display: block; 
+}
+
+#startgame { /* only display if host */
+  position: absolute; 
+  left:50%; 
+  top:50%;
+  transform: translate(-50%, -50%);
+  display: none; 
+}
+
+#waitingroom button{
+  margin: 0 0 0 5px;
+  font-weight:600;
+  margin: 10px 10px 10px;
+  height: 100px; width: 100px;
+  cursor: pointer;
+  font-size: 25px;
+  background: #2691d9;
+  color: rgba(255,255,255,0.95);
+  border: 1px solid;
+  text-align:center;
+  border-radius: 50px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12); 
+    transition: 0.3s;
+}
+
+#waitingroom button:hover{
+  background: rgba(17,17,17,0.5);
+}
+
+
+#waitForStart { 
+  display: none; 
+}
+
+#wordpicker { /* only if your turn */
+  color: #fff;
+  font-weight: 600;
+  flex:2;
+  padding: 10px;
+  background: rgba(30,31,38,0.75);
+  display: none; 
+  position: absolute; 
+  left:50%; 
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+
+#wordpickerwaiter { 
+  display: none; 
+}
+
+#nextturn {
+  margin: 0 0 0 5px;
+  font-weight:600;
+  margin: 10px 10px 10px;
+  height: 50px; width: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #2691d9;
+  color: rgba(255,255,255,0.95);
+  border: 1px solid;
+  text-align:center;
+  border-radius: 25px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);  
+  display: none; 
+}
+
+#nextturn:hover{
+  background: rgba(17,17,17,0.5);
+}
+
+#drawStuff { 
+  display: none; 
+}
