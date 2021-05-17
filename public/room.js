@@ -56,7 +56,7 @@ function setup() {
     strokeWeight(10);
 }
 
-let size = 10;
+let size = 0;
 function resize(clicked_id) {
     size = 0;
     if (clicked_id == "one") size = 10;
@@ -78,7 +78,7 @@ function mouseDragged() {
 }
 
 _("#reset-canvas").addEventListener("click", function () {
-    sendOn("clear canvas", true);
+    sendOn("clear canvas", "");
 });
 
 
@@ -87,6 +87,7 @@ socket.onopen = () => {
     console.log("Connected to server!")
     // am i host?
     sendOn("is host", "")
+    sendOn("update players info", "")
 }
 
 socket.onmessage = msg => {
@@ -96,6 +97,16 @@ socket.onmessage = msg => {
 
     receiveOn("roomnumber", msg, data => {
         document.getElementById("roomnumber").innerHTML = `Roomnumber: ${data}`
+    })
+
+    receiveOn("update players info", msg, data => {
+        document.getElementById("allPlayers").innerHTML = "<b>Players:</b> <br />" 
+
+        let names = data.split("§§")
+
+        for (playerName of names) {
+            document.getElementById("allPlayers").innerHTML += playerName + "<br />"
+        }
     })
 
     receiveOn("sendToRoom", msg, data => {
@@ -135,10 +146,12 @@ socket.onmessage = msg => {
         // receive words and display them. 
         // pick one -> send to server -> start game
 
+        size = 10
+
         document.getElementById("wordpicker").style.display = "block"
+        document.getElementById("drawStuff").style.display = "flex"
 
         let words = data.split(" ")
-        console.log(words);
         document.getElementById("word0").innerHTML = words[0]
         document.getElementById("word1").innerHTML = words[1]
         document.getElementById("word2").innerHTML = words[2]
@@ -168,6 +181,8 @@ const clickedOnWord = e => {
 
 document.getElementById("nextturn").addEventListener("click", e => {
     sendOn("next turn", "")
+    size = 0
+    document.getElementById("drawStuff").style.display = "none"
     document.getElementById("nextturn").style.display = "none"
 })
 

@@ -44,8 +44,6 @@ func WSEndpoint(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	fmt.Println(username, roomnumber, roomtype)
-
 	var tempPlayer *Player
 	if roomtype == "Join" {
 		_, ok := rooms[roomnumber]
@@ -62,7 +60,6 @@ func WSEndpoint(w http.ResponseWriter, r *http.Request) {
 		tempPlayer.isHost = true
 	}
 	clients[ws] = tempPlayer
-	fmt.Println(rooms)
 
 	// send username and roomnumber back to client
 	sendOn("username", username, ws)
@@ -106,6 +103,10 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 
 	// handle message based on code/channel
 
+	receiveOn("update players info", code, func() {
+		updatePlayersInfo(msgType, code, currentRoom)
+	})
+
 	receiveOn("is host", code, func() {
 		msg := strconv.FormatBool(clients[conn].isHost)
 		sendOn("is host", msg, conn)
@@ -119,8 +120,27 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 		sendOn("is turn", data2send, conn)
 	})
 
+	// check if player guessed the word correctly
 	receiveOn("sendToRoom", code, func() {
-		currentRoom.SendToRoom(msgType, msg)
+		var sendBack []byte
+
+		if data == currentRoom.currentWord {
+			if !player.isTurn {
+				correctGuess := player.name + " guess the correct word!"
+				temp := "{\"code\":\"" + code + "\",\"data\":\"" + correctGuess + "\"}"
+				sendBack = []byte(temp)
+				player.score += 100
+
+				updatePlayersInfo(msgType, "update players info", currentRoom)
+			} else {
+				sendBack = []byte("")
+			}
+		} else {
+			txt := "<b>" + player.name + ":</b> " + data
+			temp := "{\"code\":\"" + code + "\",\"data\":\"" + txt + "\"}"
+			sendBack = []byte(temp)
+		}
+		currentRoom.SendToRoom(msgType, sendBack)
 	})
 
 	receiveOn("drawing", code, func() {
@@ -165,6 +185,18 @@ func handleMessage(conn *websocket.Conn, msgType int, msg []byte) {
 		currentRoom.SendEmptyToRoom("new turn")
 
 	})
+}
+
+func updatePlayersInfo(msgType int, code string, currentRoom *Room) {
+	var names string
+	players := currentRoom.players
+
+	for p := range players {
+		names += "Name: " + p.name + ", score: " + fmt.Sprint(p.score) + "§§"
+	}
+
+	obj := "{\"code\":\"" + code + "\",\"data\":\"" + names + "\"}"
+	currentRoom.SendToRoom(msgType, []byte(obj))
 }
 
 func generateWordsToSend() string {
