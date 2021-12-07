@@ -1,4 +1,4 @@
-# dd1349-project
+# DD1349_indaprojekt_skribblio
 En kopia av [skribble.io](https://skribbl.io)!
 
 ## Vad är det här?
